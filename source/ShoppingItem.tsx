@@ -1,3 +1,4 @@
+//#region Imports
 import React from 'react';
 import {
     SafeAreaView,
@@ -6,25 +7,22 @@ import {
     Text,
     StatusBar,
 } from 'react-native';
+import { styles } from './Styles';
+//#endregion
 
-export const shopItems = Array<ShoppingItem>();
+type SItem = { name: string, id: number };
+export const shopItems = Array<SItem>();
 
 export class ShoppingItem extends React.Component {
     constructor(props: {name:string}) {
         super(props);
-
-        this.state.name = props.name;
-    }
-
-    state = {
-        name: "UNDEFINED",
     }
 
     render() {
         return (
-            <View>
-                <Text>
-                    {this.state.name}
+            <View style={[styles.global, { height: 40 , borderWidth:2, marginBottom:5, marginTop:5}]}>
+                <Text style={{textAlign:"center",fontSize:25,textAlignVertical:"center"}}>
+                    {this.props.name}
                 </Text>
             </View>
         );

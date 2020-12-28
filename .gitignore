@@ -63,3 +63,6 @@ buck-out/
 /ios/Pods/
 
 *.jfm
+/.vs/ListaZakupow/v16/Browse.VC.opendb
+/.vs/ListaZakupow/v16/Browse.VC.db-wal
+/.vs/ListaZakupow/v16/Browse.VC.db-shm

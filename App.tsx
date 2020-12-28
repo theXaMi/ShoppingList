@@ -1,3 +1,4 @@
+//#region Imports
 import React from 'react';
 
 import ShoppingList from './source/ShoppingList';
@@ -6,6 +7,7 @@ import { NavigationParams, Locale } from './source/Globals';
 import { styles } from './source/Styles';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+//#endregion
 
 const Stack = createStackNavigator<NavigationParams>();
 

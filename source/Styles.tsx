@@ -1,15 +1,19 @@
+//#region Imports
 import {
     StyleSheet
 } from 'react-native';
+//#endregion
 
 let buttonsize = 80;
-let buttoncolor = '#f66';
 let pluscolor = '#fff';
 
 export const styles = StyleSheet.create({
+    global: {
+        backgroundColor: '#07f',
+        borderColor: '#04d',
+    },
     floatingbutton: {
         position: "absolute",
-        backgroundColor: buttoncolor,
         right: 25,
         bottom: 25,
         height: buttonsize,
