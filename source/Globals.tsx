@@ -9,7 +9,7 @@ export type NavigationParams = {
 var locpl = require("./Locale/pl_Locale.json");
 var loceng = require("./Locale/en_Locale.json");
 
-export var Locale = { shoppingList: "Shopping List", addItem: "Add Item" };
+export var Locale = { shoppingList: "Shopping List", addItem: "Add Item", add: "Add"};
 
 export const loadLocale = (loc:string) => {
     if (loc == "pl") {

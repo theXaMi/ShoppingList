@@ -37,4 +37,13 @@ export const styles = StyleSheet.create({
         alignSelf: "center",
         top: '45%',
     },
+    trashcan: {
+        position: "absolute",
+        right: 20,
+        height: 20,
+        width: 20,
+        backgroundColor: "#f00",
+        marginTop: 10,
+        marginBottom: 10,
+    }
 });
