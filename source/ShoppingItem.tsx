@@ -7,8 +7,10 @@ import {
     StatusBar,
 } from 'react-native';
 
+export const shopItems = Array<ShoppingItem>();
+
 export class ShoppingItem extends React.Component {
-    constructor(props: {name:String}) {
+    constructor(props: {name:string}) {
         super(props);
 
         this.state.name = props.name;
