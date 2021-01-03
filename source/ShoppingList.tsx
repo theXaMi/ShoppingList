@@ -12,7 +12,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { NavigationParams } from './Globals';
 import { styles } from './Styles';
-import { shopItems, ShoppingItem } from './ShoppingItem';
+import { shopItems, ShoppingItem, deletemode, setDeletemode } from './ShoppingItem';
 //#endregion
 
 const ShoppingList = ({ navigation, route }: StackScreenProps<NavigationParams, 'ShoppingList'>) => {
