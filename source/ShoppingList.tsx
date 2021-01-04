@@ -13,6 +13,7 @@ import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { NavigationParams } from './Globals';
 import { styles } from './Styles';
 import { shopItems, ShoppingItem, deletemode, setDeletemode } from './ShoppingItem';
+import FloatingButton from './FloatingButton';
 //#endregion
 
 const ShoppingList = ({ navigation, route }: StackScreenProps<NavigationParams, 'ShoppingList'>) => {
@@ -29,10 +30,7 @@ const ShoppingList = ({ navigation, route }: StackScreenProps<NavigationParams, 
                     )
                 }
             </View>
-            <TouchableOpacity style={[styles.global, styles.floatingbutton, { flex: 1 }]} onPress={() => navigation.navigate("AddItem")}>
-                <View style={styles.plushor} />
-                <View style={styles.plusver} />
-            </TouchableOpacity>
+            <FloatingButton navigation={navigation}/>
         </View>
     );
 }

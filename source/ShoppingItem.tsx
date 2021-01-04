@@ -10,26 +10,50 @@ import {
     TouchableWithoutFeedback,
     Animated,
     Easing,
+    TouchableOpacity,
 } from 'react-native';
 import { styles } from './Styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { floatingbuttonsingleton } from './FloatingButton';
+import { AnimatedTouchable } from './Globals';
 //#endregion
 
 export var deletemode = false;
 
-export const setDeletemode = () => { deletemode = !deletemode; }
+export const setDeletemode = (b: boolean) => { deletemode = b; floatingbuttonsingleton.updatedelete(); }
 
 export type SItem = { name: string, id: number };
 export const shopItems = Array<SItem>();
 export const allItems = Array<SItem>();
+export const deleteItems = Array<ShoppingItem>();
 
 export class ShoppingItem extends React.Component {
     constructor(props: {name:string}) {
         super(props);
         this.deleteanim = new Animated.Value(40);
+        this.deletecolor = new Animated.Value(0);
+        this.deletecoloranim = this.deletecolor.interpolate({
+            inputRange: [0, 1],
+            outputRange: [styles.global.backgroundColor, styles.trashcan.backgroundColor]
+        })
     }
 
     deleteanim: Animated.Value;
+    deletecolor: Animated.Value;
+    deletecoloranim: Animated.Value;
+    deletecoloranimstart(b: boolean) {
+        if (b)
+            Animated.timing(this.deletecolor, {
+                toValue: 1,
+                duration: 500,
+                useNativeDriver: false
+            }).start();
+        else
+            Animated.timing(this.deletecolor, {
+                toValue: 0,
+                duration: 500,
+                useNativeDriver: false
+            }).start();
+    }
 
     state = {
         delete: false,
@@ -37,8 +61,9 @@ export class ShoppingItem extends React.Component {
     }
 
     setDelete() {
-        setDeletemode();
+        setDeletemode(true);
         this.setState({ delete: true });
+        deleteItems.push(this);
     }
 
     componentDidMount() {
@@ -59,39 +84,36 @@ export class ShoppingItem extends React.Component {
             return (
                 <TouchableOpacity
                     style={[styles.global, { height: 40, borderWidth: 2, marginBottom: 5, marginTop: 5 }]}
-                    onLongPress={() => { if (!deletemode) this.setDelete() }}
-                    onPress={() => { if (deletemode) this.setState({ delete: true })}}
+                    onLongPress={() => { if (!deletemode) this.setDelete(true) }}
+                    onPress={() => { if (deletemode) this.setDelete(true) }}
                 >
                     <Text style={{ textAlign: "left", fontSize: 25, textAlignVertical: "center" }}>
                         {this.state.name}
                     </Text>
                 </TouchableOpacity>
             );
-        else
+        else {
+            this.deletecoloranimstart(true);
             return (
-                <Animated.View
+                <AnimatedTouchable
                     style={[
+                        styles.global,
                         {
                             height: this.deleteanim,
-                            borderWidth: Animated.multiply(this.deleteanim, 2/40),
-                            marginBottom: Animated.multiply(this.deleteanim, 5/40),
-                            marginTop: Animated.multiply(this.deleteanim, 5/40),
+                            borderWidth: Animated.multiply(this.deleteanim, 2 / 40),
+                            marginBottom: Animated.multiply(this.deleteanim, 5 / 40),
+                            marginTop: Animated.multiply(this.deleteanim, 5 / 40),
+                            backgroundColor: this.deletecoloranim,
+                            borderColor: this.deletecoloranim,
                         },
-                        styles.global
                     ]}
+                    onPress={() => this.setState({})}
                 >
-                    <TouchableOpacity
-                        style={{}}
-                        onPress={() => this.setState({  })}
-                    >
-                        <Animated.Text style={{ textAlign: "left", fontSize: Animated.multiply(this.deleteanim, (25 / 40)) , textAlignVertical: "center" }}>
-                            {this.state.name}
-                        </Animated.Text>
-                        <TouchableWithoutFeedback onPress={() => shopItems.map((prop, key) => { if (prop.name == this.state.name) shopItems.splice(key, 1); console.log(key); this.deleteanimstart(); })}>
-                            <View style={styles.trashcan} />
-                        </TouchableWithoutFeedback>
-                    </TouchableOpacity>
-                </Animated.View>
+                    <Animated.Text style={{ textAlign: "left", fontSize: Animated.multiply(this.deleteanim, (25 / 40)), textAlignVertical: "center" }}>
+                        {this.state.name}
+                    </Animated.Text>
+                </AnimatedTouchable>
             );
+        }
     }
 }

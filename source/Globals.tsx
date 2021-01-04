@@ -1,3 +1,7 @@
+import {
+    Animated,
+    TouchableOpacity,
+} from 'react-native'
 
 export type NavigationParams = {
     ShoppingList: undefined,
@@ -23,3 +27,5 @@ export const loadLocale = (loc:string) => {
 }
 loadLocale("pl");
 //#endregion
+
+export const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
